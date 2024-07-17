@@ -126,7 +126,7 @@ const EditProfile = () => {
 
   return (
     <div className="flex flex-1">
-      <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14">
+      <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 bg-slate-800">
         <div className="flex items-center gap-3 justify-start w-full max-w-5xl">
           <FiEdit size={35} color="white" />
           <h2 className="text-[24px] text-white font-bold leading-[140%] tracking-tighter md:text-[30px] text-left w-full">

@@ -22,7 +22,7 @@ function handleDeletePost() {
   };
 
   return (
-    <div className="flex flex-col flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 items-center">
+    <div className="flex flex-col flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 items-center bg-slate-800">
       {isPending ? (
         <Loader />
       ) : (
