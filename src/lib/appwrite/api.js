@@ -237,41 +237,6 @@ export async function getUserBookings(userId) {
 
 /////////////////// UPDATE USER BOOKING ATTENDEES //////////////////////////////////
 
-// /**
-//  * Function to update the attendees of a booking.
-//  * @param {string} bookingId - The booking ID.
-//  * @param {string} userId - The user ID to add to attendees.
-//  * @returns {Promise<Object>} - The updated booking document.
-//  */
-// export async function updateBookingAttendees(bookingId, userId) {
-//   try {
-//     // Fetch the current booking document
-//     const booking = await databases.getDocument(appwriteConfig.databaseId, appwriteConfig.bookingsCollectionId, bookingId);
-
-//     // Check if the user is already in the attendees list
-//     if (!booking.attendees.includes(userId)) {
-//       // Add the user to the attendees list
-//       booking.attendees.push(userId);
-      
-//       // Update the booking document with the new attendees list
-//       const updatedBooking = await databases.updateDocument(
-//         appwriteConfig.databaseId,
-//         appwriteConfig.bookingsCollectionId,
-//         bookingId,
-//         { attendees: booking.attendees } // Ensure you pass only the updated attendees array
-//       );
-
-//       return updatedBooking;
-//     } else {
-//       // If user is already in attendees list, return the current booking
-//       return booking;
-//     }
-//   } catch (error) {
-//     console.error('Error updating booking attendees:', error);
-//     throw new Error('Failed to update booking attendees');
-//   }
-// }
-
 /**
  * Function to update the attendees of a booking.
  * @param {string} bookingId - The booking ID.
@@ -778,23 +743,24 @@ export async function updateUserStars(userId, stars) {
 }
 
 /**
- * Updates user points.
- * @param {string} userId - The user's ID.
- * @param {number} points - The number of points to set.
+ * Updates user points and stars after redeeming a reward.
+ * @param {string} userId - The ID of the user.
+ * @param {number} newPoints - The updated points of the user.
+ * @param {number} newStars - The updated stars of the user.
  * @returns {Promise<void>}
  */
-export async function updateUserPointsAfterRedeem(userId, points) {
+export async function updateUserPointsAndStarsAfterRedeem(userId, newPoints, newStars) {
   try {
-    // Update the user document with the new points
+    // Update user document with new points and stars
     await databases.updateDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.userCollectionId,
+      appwriteConfig.usersCollectionId,
       userId,
-      { points }
+      { points: newPoints, stars: newStars }
     );
   } catch (error) {
-    console.error('Error updating user points:', error);
-    throw new Error('Could not update user points');
+    console.error("Error updating user points and stars:", error);
+    throw new Error("Failed to update user points and stars");
   }
 }
 

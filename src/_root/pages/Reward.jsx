@@ -12,57 +12,58 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { updateUserPointsAfterRedeem } from "@/lib/appwrite/api";
+import { updateUserPointsAndStarsAfterRedeem } from "@/lib/appwrite/api";
 
 const rewards = [
-  { id: 1, name: "Reward 1", cost: 100 },
-  { id: 2, name: "Reward 2", cost: 200 },
-  { id: 3, name: "Reward 3", cost: 300 },
+  { id: 1, name: "Reward 1", cost: 100, stars: 20 },
+  { id: 2, name: "Reward 2", cost: 200, stars: 40 },
+  { id: 3, name: "Reward 3", cost: 300, stars: 60 },
 ];
 
 const Reward = () => {
-  const { user, updateUserPoints } = useUserContext();
+  const { user, updateUserPointsAndStars } = useUserContext();
   const [points, setPoints] = useState(user.points);
+  const [stars, setStars] = useState(user.stars);
   const { toast } = useToast();
 
   const getStarColor = (stars) => {
-    if(stars < 299) return "#cd7f32"; //change color to bronze
-    if(stars >= 299 && points < 600) return "#c0c0c0"; //change color to silver
-    if(stars >= 600) return "#ffd700"; //change color to gold
+    if (stars < 299) return "#cd7f32"; // change color to bronze
+    if (stars >= 299 && stars < 600) return "#c0c0c0"; // change color to silver
+    if (stars >= 600) return "#ffd700"; // change color to gold
   };
 
-  const starColor = getStarColor(user.stars);
+  const starColor = getStarColor(stars);
 
   const handleRedeem = async (reward) => {
     if (points >= reward.cost) {
       const newPoints = points - reward.cost;
+      const newStars = stars + reward.stars;
       try {
-        await updateUserPointsAfterRedeem(user.id, newPoints);
+        await updateUserPointsAndStarsAfterRedeem(user.id, newPoints, newStars);
         setPoints(newPoints);
+        setStars(newStars);
         toast({
-          description: `You have redeemed ${reward.name}`
-        })
+          description: `You have redeemed ${reward.name} for ${reward.stars} stars`,
+        });
       } catch (error) {
-        console.log(error)
+        console.log(error);
         toast({
-          description: "Failed to redeem reward. Please try again."
-        })
+          description: "Failed to redeem reward. Please try again.",
+        });
       }
     } else {
       toast({
-        description: "Not enough points to redeem this reward."
-      })
+        description: "Not enough points to redeem this reward.",
+      });
     }
   };
 
-  document.title = 'Rewards'
-  
+  document.title = "Rewards";
+
   return (
     <div className="flex flex-col flex-1 items-center overflow-scroll py-10 px-5 md:p-14 bg-slate-800">
       <div className="max-w-5xl flex flex-col items-center w-full gap-6 md:gap-9">
-        <h2 className="text-[24px] text-white font-bold leading-[140%] 
-          tracking-tighter md:text-[30px] md:font-bold md:leading-[140%] 
-          md:tracking-tighter text-left w-full">
+        <h2 className="text-[24px] text-white font-bold leading-[140%] tracking-tighter md:text-[30px] md:font-bold md:leading-[140%] md:tracking-tighter text-left w-full">
           Rewards
         </h2>
         <div className="flex gap-1 w-full px-4 py-5 rounded-lg bg-slate-600 justify-between">
@@ -83,15 +84,13 @@ const Reward = () => {
           <div className="py-1 flex flex-col items-center gap-1">
             <div className="flex items-center gap-2">
               <FaStar size={25} fill={starColor} />
-              <p className="text-lg font-semibold text-white">{user.points}</p>
+              <p className="text-lg font-semibold text-white">{points}</p>
             </div>
             <p className="text-sm text-white">points</p>
           </div>
         </div>
 
-        <h3 className="text-[20px] text-white font-bold leading-[140%] 
-          tracking-tighter md:text-[26px] md:font-bold md:leading-[140%] 
-          md:tracking-tighter text-center w-full">
+        <h3 className="text-[20px] text-white font-bold leading-[140%] tracking-tighter md:text-[26px] md:font-bold md:leading-[140%] md:tracking-tighter text-center w-full">
           Available Rewards
         </h3>
 
@@ -102,6 +101,7 @@ const Reward = () => {
                 <div className="bg-slate-600 p-4 rounded-lg shadow-lg flex flex-col items-center">
                   <p className="text-xl font-bold text-white">{reward.name}</p>
                   <p className="text-lg text-white">Cost: {reward.cost} points</p>
+                  <p className="text-lg text-white">Reward: {reward.stars} stars</p>
                   <Button
                     className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
                     onClick={() => handleRedeem(reward)}
