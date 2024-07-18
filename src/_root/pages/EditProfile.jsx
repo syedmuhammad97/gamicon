@@ -38,6 +38,8 @@ import {
 import { cn } from "@/lib/utils";
 import { CommandList } from "cmdk";
 
+document.title = 'Edit Profile'
+
 /**
  * @typedef {z.infer<typeof ProfileValidation>} ProfileValidationType
  */

@@ -20,6 +20,8 @@ const Saved = () => {
     )
     .reverse();
 
+    document.title = 'Saved'
+
   return (
     <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:p-14 bg-slate-800">
       <div className="flex gap-2 max-w-5xl w-full">

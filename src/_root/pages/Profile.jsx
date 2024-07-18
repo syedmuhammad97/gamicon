@@ -33,6 +33,7 @@ const Profile = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    document.title = 'Profile'
     const fetchUserProfile = async () => {
       try {
         const userData = await getUserProfile(id); // Fetch user profile data based on URL params
@@ -85,33 +86,39 @@ const Profile = () => {
           <h2 className="text-[24px] text-white font-bold leading-[140%] tracking-tighter md:text-[30px] md:font-bold md:leading-[140%] md:tracking-tighter text-left w-full">
             Profile
           </h2>
-          <div className="flex gap-1 w-full px-4 py-5 rounded-lg bg-slate-600 justify-between">
-            <div className="flex gap-4">
-              <img
-                src={userProfile.imageURL}
-                alt="profile"
-                className="h-14 w-14 rounded-full"
-              />
-              <div className="flex flex-col">
-                <p className="text-[18px] font-bold leading-[140%] text-white">
-                  {userProfile.name}
-                </p>
-                <div className="flex gap-2">
-                  <p className="text-[14px] font-normal leading-[140%] text-white">
-                    @{userProfile.username}
+          <div className="flex flex-col gap-1 w-full px-4 py-5 rounded-lg bg-slate-600">
+            <div className="flex justify-between">
+              <div className="flex gap-4">
+                <img
+                  src={userProfile.imageURL}
+                  alt="profile"
+                  className="h-14 w-14 rounded-full"
+                />
+                <div className="flex flex-col">
+                  <p className="text-[18px] font-bold leading-[140%] text-white">
+                    {userProfile.name}
                   </p>
-                  <Badge variant="default">{userProfile.roleType}</Badge>
+                  <div className="flex gap-2">
+                    <p className="text-[14px] font-normal leading-[140%] text-white">
+                      @{userProfile.username}
+                    </p>
+                    <Badge variant="default">{userProfile.roleType}</Badge>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="py-1 flex flex-col items-center gap-1">
-              <div className="flex items-center gap-2">
-                <FaStar size={25} fill={starColor} />
-                <p className="text-lg font-semibold text-white">
-                  {userProfile.points}
-                </p>
+              <div className="py-1 flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <FaStar size={25} fill={starColor} />
+                  <p className="text-lg font-semibold text-white">
+                    {userProfile.points}
+                  </p>
+                </div>
+                <p className="text-sm text-white">points</p>
               </div>
-              <p className="text-sm text-white">points</p>
+            </div>
+            {/* Bio Section */}
+            <div className="w-full px-3 py-3 bg-slate-800 rounded-xl mt-2">
+              <p className="text-white">{user.bio}</p>
             </div>
           </div>
 

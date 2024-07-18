@@ -7,6 +7,7 @@ import React from "react";
 //feeds is home
 const Feeds = () => {
   const{data: posts, isPending: isPostLoading, isError: isErrorPosts} = useGetRecentPosts();
+  document.title = 'Feeds'
   return (
     <div className="flex flex-1 bg-slate-800">
       <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14">

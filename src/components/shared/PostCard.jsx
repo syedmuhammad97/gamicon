@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { useUserContext } from "@/context/AuthContext";
 import StatsPost from "./StatsPost";
+import { Badge } from "../ui/badge";
 
 /**
  * @typedef {import("appwrite").Models.Document} PostCardProps
@@ -22,7 +23,7 @@ const PostCard = ({ post }) => {
   
   const creatorId = post.creator.$id || post.creator.id; 
   const creatorName = post.creator.name || "Unknown"; // Default to "Unknown" if name is missing
-  const creatorImageURL = post.creator.imageURL || "/path/to/default/image.jpg"; // Default image if missing
+  const creatorImageURL = post.creator.imageURL
 
   if (!creatorId) {
     console.log("Error: creatorId is undefined or null");
@@ -41,9 +42,12 @@ const PostCard = ({ post }) => {
             />
           </Link>
           <div className="flex flex-col">
+            <div className="flex flex-row gap-2">
             <p className="text-[18px] text-white font-medium leading-[140%] lg:text-[18px] lg:font-bold lg:leading-[140%]">
               {creatorName}
             </p>
+            <Badge variant="default">{user.roleType}</Badge>
+            </div>
             <div className="flex items-center gap-2">
               <p className="text-[14px] text-white font-semibold leading-[140%] tracking-tighter lg:text-[14px] lg:font-normal lg:leading-[140%]">
                 {timeAgo(post.$createdAt)}

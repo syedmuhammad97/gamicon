@@ -18,6 +18,9 @@ const Explore = () => {
   const { data: post, fetchNextPage, hasNextPage } = useGetPost();
   const { data: searchPosts, isFetching: isSearchFetching } = useSearchPost(debounceValue);
 
+  document.title = 'Explore'
+
+
   useEffect(() => {
     if(inView && ! searchVal) fetchNextPage();
   }, [inView, searchVal])

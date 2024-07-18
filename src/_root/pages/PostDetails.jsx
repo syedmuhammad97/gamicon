@@ -15,6 +15,8 @@ const PostDetails = () => {
   const { user } = useUserContext();
   const { mutate: deletePost } = useDeletePost();
   const navigate = useNavigate();
+
+  document.title = 'Post Details'
   
 function handleDeletePost() {
     deletePost({ postId: id, imageId: post?.imageId });

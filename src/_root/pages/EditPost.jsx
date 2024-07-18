@@ -9,6 +9,8 @@ const EditPost = () => {
     const { id } = useParams();
     const { data: post, isPending} = useGetPostID(id)
 
+    document.title = 'Edit Post'
+
     if(isPending) return <Loader />
   return ( 
     <div className="flex flex-1">

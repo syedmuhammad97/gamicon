@@ -4,6 +4,7 @@ import React from 'react'
 import { MdOutlineAddComment } from 'react-icons/md'
 
 const CreateBooking = () => {
+  document.title = 'Create Booking'
   return (
     <div className="flex flex-1 bg-slate-800">
       <div className="flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14">
