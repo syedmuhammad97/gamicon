@@ -1,7 +1,7 @@
 import { useDeletePost, useGetPostID } from "@/lib/react-query/queriesAndMutations";
 import { timeAgo } from "@/lib/utils";
 import { Loader } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { useUserContext } from "@/context/AuthContext";
@@ -15,6 +15,25 @@ const PostDetails = () => {
   const { user } = useUserContext();
   const { mutate: deletePost } = useDeletePost();
   const navigate = useNavigate();
+
+   // State to manage image source
+   const [imageSrc, setImageSrc] = useState("");
+
+   // Set initial image source when post data is available
+   useEffect(() => {
+     if (post) {
+       setImageSrc(post?.imageURL);
+     }
+   }, [post]);
+ 
+   // Update the image source to the full image URL on click
+   const handleImageClick = () => {
+     const fullImageURL = post?.imageURL.replace(
+       /\/preview\?width=\d+&height=\d+&gravity=\w+&quality=\d+/,
+       '/preview?'
+     );
+     setImageSrc(fullImageURL);
+   };
 
   document.title = 'Post Details'
   
@@ -30,9 +49,10 @@ function handleDeletePost() {
       ) : (
         <div className="w-full max-w-5xl rounded-[30px] flex-col flex xl:flex-row border border-white xl:rounded-l-[24px]">
           <img
-            src={post?.imageURL}
+            src={imageSrc}
             alt="post"
-            className="h-80 lg:h-[480px] xl:w-[48%] rounded-t-[30px] xl:rounded-l-[24px] xl:rounded-tr-none object-cover p-5"
+            className="h-80 lg:h-[480px] xl:w-[48%] rounded-t-[30px] xl:rounded-l-[24px] xl:rounded-tr-none object-cover p-5 cursor-pointer"
+            onClick={handleImageClick}
           />
           <div className="flex flex-col gap-5 lg:gap-7 flex-1 items-start p-8 rounded-[30px]">
             <div className="flex justify-between items-center w-full">

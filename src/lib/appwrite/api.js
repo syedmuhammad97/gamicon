@@ -323,6 +323,23 @@ try {
  * @param {string} fileId 
  */
 
+export async function getFileView(fileId) {
+  try {
+    const fileUrl = storage.getFileView(
+      appwriteConfig.storageId,
+      fileId
+    );
+    return fileUrl;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * 
+ * @param {string} fileId 
+ */
+
 export async function deleteFile(fileId){
   try {
     await storage.deleteFile(appwriteConfig.storageId, fileId);
