@@ -66,7 +66,7 @@ const SignupForms = () => {
     if(isLoggedIn){
       form.reset();
 
-      navigate('/home')
+      navigate('/feed')
     }else{
       return toast({title: "Sign Up failed, please try again"})
     }

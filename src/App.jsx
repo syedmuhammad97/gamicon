@@ -3,7 +3,7 @@ import "./globals.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import SigninForm from "./_auth/forms/SigninForm";
 import SignupForms from "./_auth/forms/SignupForms";
-import Home from "./_root/pages/Home";
+
 import AuthLayout from "./_auth/AuthLayout";
 import { Toaster } from "@/components/ui/toaster";
 import RootLayout from "./_root/RootLayout";
