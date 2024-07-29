@@ -46,7 +46,7 @@ const PostCard = ({ post }) => {
             <p className="text-[18px] text-white font-medium leading-[140%] lg:text-[18px] lg:font-bold lg:leading-[140%]">
               {creatorName}
             </p>
-            <Badge variant="default">{user.roleType}</Badge>
+            <Badge variant="default">{post.creator.roleType}</Badge>
             </div>
             <div className="flex items-center gap-2">
               <p className="text-[14px] text-white font-semibold leading-[140%] tracking-tighter lg:text-[14px] lg:font-normal lg:leading-[140%]">
